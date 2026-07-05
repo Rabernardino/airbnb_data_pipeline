@@ -16,7 +16,8 @@ __pycache__/
 .vscode/
 
 # ==========================================
-dbt_packages/
-dbt_modules/
-logs/
-target/
+transform/dbt_modules/
+transform/logs/
+transform/target/
+transform/dbt_packages/
+transform/.user.yml

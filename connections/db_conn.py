@@ -13,10 +13,10 @@ load_dotenv()
 class postgres_connection():
     def __init__(self):
         
-        self.host = os.getenv('HOST')
-        self.port = os.getenv('PORT')
-        self.user = os.getenv('USER')
-        self.password = os.getenv('PASS')
+        self.host = os.getenv('DB_HOST')
+        self.port = os.getenv('DB_PORT')
+        self.user = os.getenv('DB_USER')
+        self.password = os.getenv('DB_PASS')
         self.db = os.getenv('DATABASE')
 
         self.url = f"postgresql+psycopg2://{self.user}:{self.password}@{self.host}:{self.port}/{self.db}"

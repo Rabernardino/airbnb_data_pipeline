@@ -13,9 +13,19 @@ psycopg = {extras = ["binary"], version = "^3.3.4"}
 dbt-postgres = "^1.10.2"
 python-dotenv = "^1.2.2"
 
-
 [tool.poetry.group.dev.dependencies]
 ipykernel = "^7.3.0"
+taskipy = "^1.14.1"
+
+[tool.taskipy.tasks]
+# Atalho para carregar o .env e rodar o debug
+dbt_debug = "export $(grep -v '^#' .env | xargs) && dbt debug --project-dir transform --profiles-dir transform"
+
+# Atalho para carregar o .env e rodar o run
+dbt_run = "export $(grep -v '^#' .env | xargs) && dbt run --project-dir transform --profiles-dir transform"
+
+# Atalho para carregar o .env e rodar os testes
+dbt_test = "export $(grep -v '^#' .env | xargs) && dbt test --project-dir transform --profiles-dir transform"
 
 [build-system]
 requires = ["poetry-core"]
