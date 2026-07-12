@@ -1,0 +1,22 @@
+
+
+unit_tests:
+  - name: mart_fullmoon_condition
+    model: mart_full_moon
+    given:
+      - input: ref('fct_reviews')
+        rows:
+          - {review_date: '2026-07-13'}
+          - {review_date: '2026-07-11'}
+          - {review_date: '2026-07-15'}
+
+      - input: ref('seed_full_moon_dates')
+        rows:
+          - {full_moon_date: '2026-07-14'}
+
+    expect:
+      rows:
+        - {review_date: '2026-07-13', is_full_moon: 'not full moon'}
+        - {review_date: '2026-07-11', is_full_moon: 'not full moon'}
+        - {review_date: '2026-07-15', is_full_moon: 'full moon'}
+        

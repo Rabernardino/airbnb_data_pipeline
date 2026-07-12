@@ -1,6 +1,6 @@
 {{
     config(
-        materialized='view'
+        materialized='table'
     )
 }}
 
@@ -15,7 +15,7 @@ SELECT
 	host_id,
 	COALESCE(host_name,'Anonymous') as host_name,
 	is_superhost,
-	created_at,
-	updated_at
+	CAST(created_at as TIMESTAMP),
+	CAST(updated_at as TIMESTAMP)
 FROM
     src_hosts

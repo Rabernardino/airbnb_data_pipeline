@@ -33,6 +33,12 @@ dbt_freshness = "export $(grep -v '^#' .env | xargs) && dbt source freshness --p
 # Atalho para carrega o .env e rodar as seed do projeto
 dbt_seeds = "export $(grep -v '^#' .env | xargs) && dbt seed --project-dir transform --profiles-dir transform"
 
+# Atalho para carrega o .env e rodar os snapshots do projeto
+dbt_snap = "export $(grep -v '^#' .env | xargs) && dbt snapshot --project-dir transform --profiles-dir transform"
+
+# Atalho para carrega o .env e rodar o build completo do projeto
+dbt_build = "export $(grep -v '^#' .env | xargs) && dbt build --project-dir transform --profiles-dir transform"
+
 
 [build-system]
 requires = ["poetry-core"]
