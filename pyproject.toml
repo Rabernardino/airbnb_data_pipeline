@@ -39,6 +39,15 @@ dbt_snap = "export $(grep -v '^#' .env | xargs) && dbt snapshot --project-dir tr
 # Atalho para carrega o .env e rodar o build completo do projeto
 dbt_build = "export $(grep -v '^#' .env | xargs) && dbt build --project-dir transform --profiles-dir transform"
 
+dbt_show = "export $(grep -v '^#' .env | xargs) && dbt show --project-dir transform --profiles-dir transform --inline"
+
+dbt_deps = "export $(grep -v '^#' .env | xargs) && dbt deps --project-dir transform --profiles-dir transform"
+
+dbt_docs = "export $(grep -v '^#' .env | xargs) && dbt docs generate --project-dir transform --profiles-dir transform"
+
+dbt_docs_serve = "export $(grep -v '^#' .env | xargs) && dbt docs serve --project-dir transform --profiles-dir transform"
+
+dbt_ls = "export $(grep -v '^#' .env | xargs) && dbt ls --project-dir transform --profiles-dir transform"
 
 [build-system]
 requires = ["poetry-core"]

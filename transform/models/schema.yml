@@ -2,6 +2,8 @@
 
 models:
   - name: dim_listings_cleansed
+    description: Table which constains information of listings.
+
     data_tests:
       - minimum_row_count:
           arguments:
@@ -10,6 +12,7 @@ models:
 
     columns: 
       - name: listing_id
+        description: Id associated with the listing.
         data_tests:
           - unique
           - not_null
@@ -25,16 +28,23 @@ models:
         
 
       - name: room_type
+        description: The type of room available on that airbnb.
         data_tests:
           - accepted_values:
               values: ['Entire home/apt','Shared room','Private room','Hotel room']
       
       - name: minimum_nights
+        description: "{{ doc('dim_listings_cleansed__minimum_nights') }}"
         data_tests:
           - positive_values
+          - dbt_expectations.expect_column_quantile_values_to_be_between:
+              quantile: .95
+              min_value: 0
+              max_value: 1124
 
 
   - name: dim_hosts_cleansed
+    description: Table which constains the hosts informations.
     # config:
       # contract:
       #   enforced: true
@@ -45,17 +55,20 @@ models:
 
     columns:
       - name: host_id
+        description: Id of the host.
         # data_type: integer
         data_tests:
           - unique
           - not_null
 
       - name: host_name
+        description: Name of the host.
         # data_type: string
         data_tests:
           - not_null
 
       - name: is_superhost
+        description: "{{ doc('dim_hosts_cleansed__super_host') }}"
         # data_type: string
         data_tests:
           - accepted_values:
@@ -67,6 +80,21 @@ models:
       # - name: updated_at
       #   data_type: timestamp
 
+
+  - name: dim_listings_w_hosts
+    data_tests:
+      - dbt_expectations.expect_table_row_count_to_equal_other_table:
+          compare_model: source('airbnb', 'listings')
+    
+    columns:
+      - name: price
+        data_tests:
+          - dbt_expectations.expect_column_max_to_be_between:
+              min_value: 0
+              max_value: 7500
+              config:
+                severity: warn
+        
 
   - name: fct_reviews
     columns:

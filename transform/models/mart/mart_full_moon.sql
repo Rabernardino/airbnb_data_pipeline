@@ -1,5 +1,7 @@
 {{ config(
-    materialized='table')
+    materialized='table',
+    tags=['fact']
+    )
 }}
 
 
@@ -15,7 +17,7 @@ full_moon_dates AS (
         *
     FROM
         {{ ref('seed_full_moon_dates') }}
-)
+)Í
 
 
 SELECT
